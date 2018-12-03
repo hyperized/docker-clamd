@@ -3,14 +3,14 @@ A simple ClamAV Daemon docker instance based on Alpine
 
 ### To pull container
 
-```docker pull hyperized/docker-clamd```
+```docker pull hyperized/clamd```
 
 ### To build container
 
-```docker build -t docker-clamd .```
+```docker build -t clamd .```
 
 ### To run container 
 
-```docker run -p 3310:3310 clamav```
+```docker run -p 3310:3310 clamd```
 
 Inspired by: [mko-x/docker-clamav](https://github.com/mko-x/docker-clamav)
