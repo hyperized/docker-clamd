@@ -3,7 +3,7 @@ FROM alpine:latest
 LABEL maintainer="Gerben Geijteman <gerben@hyperized.net>"
 LABEL description="A simple ClamAV Daemon docker instance based on Alpine"
 
-RUN apk --no-cache add --update clamav-daemon wget
+RUN apk --no-cache add --update clamav-daemon wget netcat-openbsd
 
 # Initial update of av databases
 RUN wget -O /var/lib/clamav/main.cvd http://database.clamav.net/main.cvd && \
@@ -23,6 +23,9 @@ EXPOSE 3310
 
 # Expose volume so external Freshclam instance can update database
 VOLUME ["/var/lib/clamav"]
+
+# Healthcheck
+HEALTHCHECK --interval=10s --timeout=3s CMD echo "PING\n" | nc localhost 3310
 
 # Run in foreground
 CMD ["/usr/sbin/clamd", "-c", "/etc/clamav/clamd.conf"]
